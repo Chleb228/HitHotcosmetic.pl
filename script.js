@@ -130,12 +130,29 @@ function renderPagination() {
 }
 
 function handleSearch() {
-    const query = document.getElementById('search-input').value.toLowerCase();
-    filteredProducts = products.filter(p => 
-        p[`title_${currentLang}`].toLowerCase().includes(query)
-    );
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    const langKey = `title_${currentLang}`; // Ищем по названию на текущем языке
+
+    if (query === "") {
+        // Если поиск пустой — показываем все товары
+        filteredProducts = [...products];
+    } else {
+        // Фильтруем основной массив товаров
+        filteredProducts = products.filter(p => {
+            const title = p[langKey] ? p[langKey].toLowerCase() : "";
+            return title.includes(query);
+        });
+    }
+
+    // Сбрасываем на 1 страницу и перерисовываем
     currentPage = 1;
     renderAll();
+
+    // Опционально: если ничего не найдено, выводим сообщение
+    const container = document.getElementById('product-list');
+    if (filteredProducts.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 50px;">Ничего не найдено 🔍</p>`;
+    }
 }
 
 function filterByCategory(cat) {
@@ -232,5 +249,6 @@ function showProductDetails(id) {
 function openModal(id) { document.getElementById(id).style.display = 'flex'; }
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 function goToPayment() { if (cart.length > 0) window.location.href = "payment.html"; }
+
 
 window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = "none"; }
