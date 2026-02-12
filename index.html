@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HitHot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-flex">
+            <div class="logo">HitHot <span></span></div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="..." oninput="filterProducts()">
+            </div>
+
+            <div class="header-actions">
+                <div class="lang-select">
+                    <select id="lang-switcher" onchange="changeLanguage(this.value)">
+                        <option value="pl">PL</option>
+                        <option value="en">EN</option>
+                        <option value="de">DE</option>
+                        <option value="ua">UA</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </div>
+
+                <div class="cart-btn" onclick="openCart()">
+                    🛒 <span id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <button onclick="openModal('category-modal')" class="btn-cat" data-i18n="categories">Kategorie</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 class="section-title" data-i18n="hits">Hity i Popularne</h2>
+        <div class="product-grid" id="product-list">
+            </div>
+    </main>
+
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('category-modal')">&times;</span>
+            <h3 data-i18n="categories">Kategorie</h3>
+            <ul class="cat-list">
+                <li onclick="filterByCategory('face')" data-i18n="cat_face">Pielęgnacja twarzy</li>
+                <li onclick="filterByCategory('mask')" data-i18n="cat_mask">Maski</li>
+                <li onclick="filterByCategory('makeup')" data-i18n="cat_makeup">Makijaż</li>
+                <li onclick="filterByCategory('spf')" data-i18n="cat_spf">Ochrona przeciwsłoneczna</li>
+                <li onclick="filterByCategory('body')" data-i18n="cat_body">Ciało i Włosy</li>
+                <li onclick="renderProducts(); closeModal('category-modal')" data-i18n="cat_all">Pokaż wszystko</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-view">
+            <span class="close" onclick="closeModal('product-modal')">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cart-modal')">&times;</span>
+            <h3 data-i18n="cart_title">Koszyk</h3>
+            <div id="cart-items" class="cart-list">
+                <p data-i18n="empty">Koszyk pusty</p>
+            </div>
+            <div class="cart-total">
+                <span data-i18n="total">Razem:</span>
+                <span id="cart-total-price">0 ₴</span>
+            </div>
+            <button class="btn-main" style="width:100%; margin-top:10px;" onclick="goToPayment()" data-i18n="checkout">Zamów</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

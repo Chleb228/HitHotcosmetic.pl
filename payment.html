@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HitHot - Payment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="payment-bg">
+
+    <div class="payment-card">
+        <h2 data-i18n="pay_title">Płatność</h2>
+        
+        <div class="order-summary">
+            <p><span data-i18n="total">Razem:</span> <strong id="pay-amount">0 ₴</strong></p>
+        </div>
+
+        <h3 data-i18n="pay_method">Wybierz metodę:</h3>
+        
+        <div class="payment-methods">
+            <label class="method-item">
+                <input type="radio" name="payment" value="blik" checked>
+                <span class="method-box">BLIK</span>
+            </label>
+            <label class="method-item">
+                <input type="radio" name="payment" value="apple">
+                <span class="method-box"> Apple Pay</span>
+            </label>
+            <label class="method-item">
+                <input type="radio" name="payment" value="google">
+                <span class="method-box">G Pay</span>
+            </label>
+            <label class="method-item">
+                <input type="radio" name="payment" value="card">
+                <span class="method-box">💳 Card</span>
+            </label>
+        </div>
+
+        <button class="btn-main pay-btn" onclick="processPayment()" data-i18n="pay_btn">Zapłać</button>
+        
+        <div id="payment-status" style="margin-top: 15px; font-weight: bold;"></div>
+
+        <a href="index.html" class="back-link" data-i18n="back_shop">← Wróć do sklepu</a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Небольшой скрипт специально для этой страницы, чтобы подгрузить сумму
+        document.addEventListener("DOMContentLoaded", () => {
+            const total = localStorage.getItem('cartTotal') || 0;
+            document.getElementById('pay-amount').innerText = total + " ₴";
+            updateText(); // Перевод интерфейса
+        });
+    </script>
+</body>
+</html>
