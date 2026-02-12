@@ -127,7 +127,6 @@ function renderPagination() {
         };
         container.appendChild(btn);
     }
-}
 
 function handleSearch() {
     const query = document.getElementById('search-input').value.toLowerCase().trim();
@@ -252,3 +251,4 @@ function goToPayment() { if (cart.length > 0) window.location.href = "payment.ht
 
 
 window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = "none"; }
+
